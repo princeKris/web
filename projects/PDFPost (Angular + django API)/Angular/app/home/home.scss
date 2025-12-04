@@ -1,0 +1,216 @@
+/* ===============================
+   HERO SECTION — FIXED + BEAUTIFIED
+================================= */
+.hero-section {
+  position: relative;
+  min-height: 50vh;
+  background: linear-gradient(135deg, #5b2cff, #8a2be2);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;   /* ← centers horizontally */
+  align-items: center;       /* ← centers vertically */
+  text-align: center;        /* ← forces text center */
+  padding: 3rem 0;
+  overflow: hidden;
+}
+
+
+
+.hero-content {
+  position: relative;
+  width: 100%;     /* ← ensures full width */
+  max-width: 750px; /* ← centers nicely on large screens */
+  z-index: 5;
+  margin: 0 auto;  /* ← center alignment fix */
+}
+
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+
+
+
+.fade-in { animation: fadeIn 1s ease forwards; opacity: 0; }
+.fade-in-delay { animation: fadeIn 1.3s ease forwards; opacity: 0; }
+.fade-in-delay2 { animation: fadeIn 1.7s ease forwards; opacity: 0; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+
+
+/* ===============================
+   LEFT / RIGHT SIDEBAR — STICKY
+================================= */
+.sidebar-left,
+.sidebar-right {
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+
+
+/* ===============================
+   PDF CARD — OPTIMIZED + ANIMATED
+================================= */
+.pdf-card {
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+  overflow: hidden;
+  border: none;
+  background: #fff;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.pdf-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+/* Fade+slide animation */
+.fade-slide {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeSlideIn 0.55s ease forwards;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+/* Avatar */
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+
+/* PDF preview image */
+.pdf-image {
+  height: 320px;
+  width: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 992px) {
+  .pdf-image { height: 220px; }
+}
+
+
+
+/* No preview box */
+.no-preview-box {
+  height: 320px;
+  width: 100%;
+  background: linear-gradient(135deg, #5b2cff, #8a2be2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media (max-width: 992px) {
+  .no-preview-box { height: 220px; }
+}
+
+
+
+/* Text clamp */
+.clamp-3-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+
+
+/* ===============================
+   CATEGORY TAGS
+================================= */
+.category-scroll {
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.category-item {
+  padding: 10px 18px;
+  background: #fff;
+  border-radius: 25px;
+  color: #4b0082;
+  border: 2px solid #e2d8ff;
+  font-weight: 600;
+  transition: 0.3s;
+  white-space: nowrap;
+}
+
+.category-item:hover {
+  background: #5b2cff;
+  color: #fff;
+}
+
+
+
+/* ===============================
+   SKELETON LOADER
+================================= */
+.skeleton-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+  animation: fadeIn 0.3s ease;
+}
+
+.skeleton-header,
+.skeleton-footer {
+  height: 40px;
+  background: #eee;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  animation: shimmer 1.4s infinite linear;
+}
+
+.skeleton-image {
+  height: 220px;
+  border-radius: 8px;
+  background: #eaeaea;
+  margin-bottom: 12px;
+  animation: shimmer 1.4s infinite linear;
+}
+
+.skeleton-line {
+  height: 12px;
+  margin-bottom: 10px;
+  background: #e6e6e6;
+  border-radius: 6px;
+  animation: shimmer 1.4s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: 200px 0; }
+}
+
+.skeleton-card div {
+  background: linear-gradient(90deg, #ddd 25%, #e7e7e7 50%, #ddd 75%);
+  background-size: 200% 100%;
+}

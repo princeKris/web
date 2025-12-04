@@ -1,0 +1,107 @@
+<div class="post-wrapper container py-4">
+
+  <!--  USER INFO -->
+  <div class="d-flex align-items-center gap-3 mb-4">
+    <a [routerLink]="['/profile',post?.author?.id]">
+ @if(post?.author?.image){
+  <img [src]="post?.author?.image" class="user-avatar" alt="Preview">
+ }@else {
+  <div class="profile-avatar default-avatar d-flex justify-content-center align-items-center">
+          <i class="bi bi-person-fill fs-1"></i>
+        </div>
+ }
+  </a>
+    <div>
+      <h4 class="mb-0">{{ post?.author?.username }}<i *ngIf="post?.author?.verified" class="bi bi-patch-check-fill text-success"></i></h4>
+      <small class="text-muted">@{{ post?.author?.username }}</small>
+    </div>
+  </div>
+
+
+  <!--  POST TITLE -->
+  <h2 class="post-title">{{ post?.title }}</h2>
+
+  <!-- LIKE + DOWNLOAD -->
+  <div class="d-flex align-items-center gap-3 mt-3 mb-4">
+    <button class="btn btn-light" (click)="onToggleLike(post,post.id)">
+      <i class="bi" [ngClass]="post?.is_liked ? 'bi-heart-fill text-danger' : 'bi-heart'"></i> {{ post?.likes_count  }}
+    </button>
+
+    <a [href]="post?.file" [download]="post?.title" class="btn btn-primary" target="_blank">
+      <i class="bi bi-download"></i> Download PDF
+    </a>
+  </div>
+
+
+  <!--  DESCRIPTION -->
+  <p class="post-description">{{ post?.description }}</p>
+
+
+  <!--  PDF VIEWER -->
+  <div class="pdf-section mt-4 mb-4">
+    <h5 class="mb-2">PDF Preview</h5>
+
+    <ng-container *ngIf="safePdfUrl; else noPdf">
+      <iframe
+        [src]="safePdfUrl"
+        class="pdf-viewer"
+      ></iframe>
+    </ng-container>
+
+    <ng-template #noPdf>
+      <p class="text-danger">No PDF available.</p>
+    </ng-template>
+  </div>
+
+
+  <!-- COMMENTS SECTION -->
+  <div class="comments-section mt-5">
+    <h4>Comments</h4>
+
+    <!-- Add Comment -->
+    <div class="add-comment d-flex gap-2 mt-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Write a comment..."
+        [(ngModel)]="newComment"
+      />
+      <button class="btn btn-dark" (click)="addComment()">
+        Post
+      </button>
+    </div>
+
+    <!-- Comment List -->
+    <div class="comment-list mt-4">
+
+      @for (c of post?.comments; track c.id) {
+        <div class="comment-box d-flex gap-3 mb-3">
+          <a [routerLink]="['/profile',c?.user?.id]">
+          <ng-container *ngIf="c?.user?.image; else defaultIcon">
+        <img [src]="c?.user?.image" class="user-avatar" alt="Preview">
+      </ng-container>
+      <ng-template #defaultIcon>
+        <div class="profile-avatar default-avatar d-flex justify-content-center align-items-center">
+          <i class="bi bi-person-fill fs-1"></i>
+        </div>
+      </ng-template></a>
+          <div>
+            <strong>{{ c.user?.username }}<i *ngIf="c?.user?.verified" class="bi bi-patch-check-fill text-success"></i></strong>
+            <p class="m-0">{{ c.text }}</p>
+            <small class="text-muted">{{ c.created_at | date:'short' }}</small>
+            <button 
+      class="btn btn-sm btn-danger float-end"
+      *ngIf="canDeleteComment(c)"
+      (click)="deleteComment(c.id)"
+    >
+      Delete
+    </button>
+          </div>
+        </div>
+      }
+
+    </div>
+
+  </div>
+
+</div>

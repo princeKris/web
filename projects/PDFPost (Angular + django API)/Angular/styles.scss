@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --primary: #5A4AE3;
+  --primary-light: #7C63FF;
+  --primary-dark: #3F32B3;
+
+  --accent: #A78BFA;
+  --background: #F3F1FF;
+  --text-dark: #2A2A2A;
+  --text-light: #ffffff;
+}
+
+/* Apply to body */
+body {
+  background-color: var(--background);
+  color: var(--text-dark);
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary-dark);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+}
+
+.navbar {
+  background-color: var(--primary);
+}
+
+.navbar-brand, .nav-link, .text-white {
+  color: var(--text-light) !important;
+}

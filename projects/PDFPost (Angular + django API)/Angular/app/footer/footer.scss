@@ -1,0 +1,33 @@
+.pdf-footer {
+  background: linear-gradient(135deg, #5b2cff, #8a2be2);
+  color: white;
+  margin-top: 40px;
+}
+
+.footer-link {
+  color: #e8daff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: 0.3s;
+}
+
+.footer-link:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.footer-icon {
+  color: #e8daff;
+  font-size: 1.3rem;
+  margin-right: 12px;
+  transition: 0.3s;
+}
+
+.footer-icon:hover {
+  color: white;
+}
+
+.footer-bottom {
+  background: rgba(0,0,0,0.15);
+  backdrop-filter: blur(3px);
+}

@@ -1,0 +1,294 @@
+<!-- MOBILE SIDEBAR -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+  <div class="offcanvas-header" style="background: var(--primary); color:white;">
+    <h5 class="offcanvas-title">PDFPost</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+  </div>
+
+  <div class="offcanvas-body">
+
+    <!-- SEARCH -->
+    <div class="mb-3">
+      <button class="btn btn-secondary w-100" data-bs-toggle="modal" data-bs-target="#searchModal">
+  <i class="bi bi-search"></i> Search
+</button>
+
+      <!-- <input class="form-control" placeholder="Search...">
+      <button class="btn btn-secondary w-100 mt-2">Advanced</button> -->
+    </div>
+
+    <!-- NOT LOGGED IN -->
+    <div *ngIf="!isLoggedIn">
+      <button class="btn btn-primary w-100 mb-2"
+              data-bs-toggle="modal"
+              data-bs-target="#signInModal">
+        Sign In
+      </button>
+
+      <button class="btn btn-accent w-100 mb-2"
+              data-bs-toggle="modal"
+              data-bs-target="#signUpModal"
+              style="background: var(--accent); color:white;">
+        Sign Up
+      </button>
+    </div>
+
+    <!-- LOGGED IN -->
+    <div *ngIf="isLoggedIn" class="mt-3">
+      <a routerLink="/profile" class="btn btn-outline-dark w-100 mb-2" (click)="closeSidebar()">{{ user?.username }} (Profile)</a>
+      <!-- <button class="btn btn-outline-dark w-100 mb-2">Settings</button> -->
+      <button class="btn btn-danger w-100" (click)="logout();closeSidebar();">Logout</button>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg shadow-sm px-3 sticky-top bg-primary">
+  <div class="container-fluid">
+
+    <!-- MOBILE MENU BUTTON -->
+    <button class="btn d-lg-none me-2 text-white"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#mobileMenu">
+      <i class="bi bi-list" style="font-size: 1.5rem;"></i>
+    </button>
+
+    <!-- BRAND -->
+    <a routerLink="/home" class="navbar-brand fw-bold text-white">PDFPost</a>
+
+    <!-- SEARCH (desktop) -->
+    <div class="d-none d-lg-flex mx-auto w-50">
+      <button class="btn btn-outline-light w-100" data-bs-toggle="modal" data-bs-target="#searchModal">
+  <i class="bi bi-search"></i> Search
+</button>
+
+      <!-- <input type="text" class="form-control me-2" placeholder="Search...">
+      <button class="btn btn-light">Advanced</button> -->
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="d-flex align-items-center">
+
+      <!-- NOT LOGGED IN -->
+      <button *ngIf="!isLoggedIn"
+              class="btn btn-light me-2"
+              data-bs-toggle="modal"
+              data-bs-target="#signInModal">
+        Sign In
+      </button>
+
+      <button *ngIf="!isLoggedIn"
+              class="btn btn-accent"
+              style="background-color: var(--accent); color:white;"
+              data-bs-toggle="modal"
+              data-bs-target="#signUpModal">
+        Sign Up
+      </button>
+
+      <!-- LOGGED IN -->
+      <div *ngIf="isLoggedIn" class="dropdown">
+
+        <!-- Show User Image if exists -->
+  <img *ngIf="user?.image; else defaultUserIcon"
+       [src]="user.image"
+       class="rounded-circle dropdown-toggle"
+       data-bs-toggle="dropdown"
+       alt="no"
+       style="width:40px; height:40px; object-fit:cover; cursor:pointer; border:2px solid white;">
+
+  <!-- Fallback Icon -->
+  <ng-template #defaultUserIcon>
+    <i class="bi bi-person-circle text-white dropdown-toggle"
+       data-bs-toggle="dropdown"
+       style="font-size:2rem; cursor:pointer;"></i>
+  </ng-template>
+
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a routerLink="/profile" class="dropdown-item fw-bold">{{ user?.username }} (Profile)</a></li>
+          <!-- <li><a class="dropdown-item">Settings</a></li> -->
+          <li><hr class="dropdown-divider"></li>
+          <li><a href="" class="dropdown-item text-danger" (click)="logout()">Logout</a></li>
+        </ul>
+
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- LOGIN MODAL -->
+<div class="modal fade" id="signInModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header" style="background: var(--primary); color: white;">
+        <h5 class="modal-title">Sign In</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form (submit)="false">
+          <div class="mb-3">
+            <label>Username</label>
+            <input type="text"
+                   class="form-control"
+                   placeholder="Enter username"
+                   [(ngModel)]="loginUsername"
+                   name="username">
+          </div>
+
+          <div class="mb-3">
+            <label>Password</label>
+            <input type="password"
+                   class="form-control"
+                   placeholder="Enter password"
+                   [(ngModel)]="loginPassword"
+                   name="password">
+          </div>
+
+          <button type="button"
+                  class="btn w-100"
+                  style="background: var(--primary); color: white;"
+                  (click)="submitLogin()">
+            Sign In
+          </button>
+          <div id="googleLoginBtn" class="g-btn mt-2"></div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- SIGN UP MODAL -->
+<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header" style="background: var(--primary); color: white;">
+        <h5 class="modal-title" id="signUpModalLabel">Create Account</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <form (ngSubmit)="submitSignup()">
+
+  <div class="mb-3">
+    <label>Username</label>
+    <input type="text"
+           class="form-control"
+           placeholder="Enter username"
+           [(ngModel)]="signupUsername"
+           name="signupUsername">
+  </div>
+
+  <div class="mb-3">
+    <label>Email</label>
+    <input type="email"
+           class="form-control"
+           placeholder="Enter email"
+           [(ngModel)]="signupEmail"
+           name="signupEmail">
+  </div>
+
+  <div class="mb-3">
+    <label>Password</label>
+    <input type="password"
+           class="form-control"
+           placeholder="Enter password"
+           [(ngModel)]="signupPassword"
+           name="signupPassword">
+  </div>
+
+  <button type="submit"
+          class="btn w-100"
+          style="background-color: var(--accent); color:white;">
+    Sign Up
+  </button>
+<div id="googleSignupBtn" class="g-btn mt-2"></div>
+
+</form>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- SEARCH MODAL -->
+<div class="modal fade" id="searchModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Search</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- Search Input -->
+        <input 
+          class="form-control"
+          placeholder="Search users or posts..."
+          [(ngModel)]="query"
+          (keyup)="onSearch()"
+        />
+
+       <!-- USERS RESULT -->
+<h4 class="mt-4">Users</h4>
+<div class="scroll-box">
+  @if(susers.length){
+    <div *ngFor="let u of susers" class="d-flex gap-3 align-items-center border-bottom py-2">
+
+      <ng-container *ngIf="u?.image; else defaultUserIcon">
+        <img [src]="u.image" class="rounded-circle" width="40" height="40" />
+      </ng-container>
+
+      <ng-template #defaultUserIcon>
+        <div class="rounded-circle bg-secondary d-flex justify-content-center align-items-center"
+            style="width:40px; height:40px;">
+          <i class="bi bi-person-fill text-light fs-1"></i>
+        </div>
+      </ng-template>
+
+      <a [routerLink]="['/profile',u?.id]" style="text-decoration: none; color: black;" target="_blank"><span>{{ u?.username }}</span></a><i *ngIf="u?.verified" class="bi bi-patch-check-fill text-success"></i>
+
+    </div>
+  }@else {
+    <span>No User...</span>
+  }
+  
+</div>
+
+
+<!-- POSTS RESULT -->
+<h4 class="mt-4">Posts</h4>
+<div class="scroll-box">
+  @if(sposts.length){
+    <div *ngFor="let p of sposts" class="border p-3 mb-3 rounded">
+    <a [routerLink]="['/post',p?.id]" style="text-decoration: none;color: black;" target="_blank"><h5>{{ p?.title }}</h5>
+    <p class="m-0 text-muted">{{ p?.description }}</p></a>
+    <a [routerLink]="['/profile',p?.author?.id]" style="text-decoration: none;" target="_blank"><small>By {{ p?.author?.username }}</small><i *ngIf="p?.author?.verified" class="bi bi-patch-check-fill text-success"></i></a>
+    </div>
+  }@else{
+    <small>No Post...</small>
+  }
+  
+</div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>

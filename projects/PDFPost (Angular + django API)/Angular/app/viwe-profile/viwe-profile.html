@@ -1,0 +1,149 @@
+<div class="profile-wrapper">
+
+  <!-- PROFILE HEADER -->
+  <div class="profile-header">
+
+    <div class="profile-avatar-wrapper">
+
+      <!-- Real profile image -->
+      <img *ngIf="user?.image && !previewImage; else defaultIconOrPreview"
+     [src]="user?.image"
+     class="profile-avatar"
+     alt="Profile">
+
+    </div>
+
+    <!-- If preview image (selected in modal) show it here too -->
+    <ng-template #defaultIconOrPreview>
+      <ng-container *ngIf="previewImage; else defaultIcon">
+        <img [src]="previewImage" class="profile-avatar" alt="Preview">
+      </ng-container>
+      <ng-template #defaultIcon>
+        <div class="profile-avatar default-avatar d-flex justify-content-center align-items-center">
+          <i class="bi bi-person-fill fs-1 text-light"></i>
+        </div>
+      </ng-template>
+    </ng-template>
+
+ 
+
+    <!-- delete profile by admin and staff -->
+     @if(avaliableForA(user?.id)){
+<div class="mt-2">
+      <button class="btn btn-danger" (click)="deleteMyAccount(user?.id)">
+        <i class="bi bi-person-fill me-1" ></i> Delete Account
+      </button>
+
+
+      <button class="btn" 
+        [ngClass]="user?.verified ? 'btn-primary' : 'btn-warning'"
+        (click)="toggleVerify(user)">
+
+  <i *ngIf="user?.verified" class="bi bi-patch-check-fill text-white me-1"></i>
+  <i *ngIf="!user?.verified" class="bi bi-clock-history text-dark me-1"></i>
+
+  {{ user?.verified ? "Verified" : "Pending Verification" }}
+</button>
+
+
+    </div>
+  }
+
+
+
+
+    <h2 class="username mt-2">
+      {{ user?.username }}
+      <i *ngIf="user?.verified" class="bi bi-patch-check-fill verified"></i>
+    </h2>
+
+    <p class="email">{{ user?.email }}</p>
+
+    <div class="stats-row">
+      <div class="stat-box">
+        <span class="stat-number">{{ posts.length  || 0  }}</span>
+        <span class="stat-label">Posts</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">{{totalLikes}}</span>
+        <span class="stat-label">Likes</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">{{totalComment}}</span>
+        <span class="stat-label">Comments</span>
+      </div>
+    </div>
+    @if(user?.bio != "null"){
+      <p class="bio text-center mt-3">{{user?.bio }}</p>
+    }
+    
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- POSTS GRID -->
+  <div class="profile-posts container">
+    <h4 class="section-title">Uploads</h4>
+
+    <div class="row g-4">
+      @for (p of posts; track p.id) {
+  <div class="col-lg-4 col-md-6 col-sm-12">
+
+    <div class="post-card">
+
+      <ng-container *ngIf="p.image; else noImg">
+        <img [src]="p.image" class="post-image" alt="{{p.title}}">
+      </ng-container>
+
+      <ng-template #noImg>
+        <div class="post-image no-preview d-flex justify-content-center align-items-center">
+          <i class="bi bi-file-earmark-pdf fs-1 text-light"></i>
+        </div>
+      </ng-template>
+
+      <div class="post-info">
+        <small class="text-muted">{{ getRelativeDate(p.updated_at) }}</small>
+        <h5 class="post-title">{{ p.title }}</h5>
+        <p class="post-desc clamp-2">{{ p.description }}</p>
+      </div>
+
+      <div class="post-actions d-flex justify-content-between px-3 pb-3">
+        <button class="btn btn-light" (click)="onToggleLike(p,p.id)">
+          <i class="bi" [ngClass]="p.is_liked ? 'bi-heart-fill text-danger' : 'bi-heart'"></i> {{ p.likes_count }}
+        </button>
+
+<button class="btn btn-light me-2" (click)="false">
+        <a  [routerLink]="['/post',p.id]"><i class="bi bi-chat"></i></a>{{ p.comments.length || 0 }}
+      </button>
+
+        <button class="btn btn-light">
+          <a [href]="p.file" [download]="p.title" target="_blank"><i class="bi bi-download"></i></a>
+        </button>
+
+@if(avaliableFor(user?.id)){
+          <!-- delete post for admin and staff -->
+        <button class="btn btn-light text-danger" (click)="deletePost(p.id)">
+          <i class="bi bi-trash"></i>
+        </button>}
+      </div>
+
+    </div>
+
+  </div>
+}
+
+    </div>
+  </div>
+
+</div>
+

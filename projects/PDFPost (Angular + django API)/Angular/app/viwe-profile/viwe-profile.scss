@@ -1,0 +1,215 @@
+/* Prevent overlap with sticky navbar */
+.profile-wrapper {
+  padding-top: 0px; /* adjust to your navbar height */
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ⭐ Header Section */
+.profile-header {
+  background: linear-gradient(135deg, #7649ff, #9d59ff);
+  padding: 40px 20px 50px;
+  border-radius: 0 0 25px 25px;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+/* Avatar circle */
+.profile-avatar-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+/* shown avatar */
+.profile-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,0.85);
+  object-fit: cover;
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+}
+
+/* default avatar (icon) */
+.default-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  border: 4px solid rgba(255,255,255,0.85);
+}
+
+/* Username */
+.username {
+  font-weight: 700;
+  margin-top: 10px;
+  font-size: 1.9rem;
+}
+
+.verified {
+  color: #00ffd5;
+  font-size: 1.2rem;
+  margin-left: 6px;
+}
+
+/* Email */
+.email {
+  color: #e4dfff;
+  margin-bottom: 8px;
+}
+
+/* Stats */
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 14px;
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+/* Bio */
+.bio {
+  max-width: 75%;
+  margin: 12px auto 0;
+  font-size: 1rem;
+  opacity: 0.95;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+/* ⭐ POSTS GRID */
+.section-title {
+  margin-top: 36px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* Post Card */
+.post-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  transition: 0.25s;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+}
+
+.post-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.no-preview {
+  background: linear-gradient(135deg, #7649ff, #9d59ff);
+}
+
+/* Post text */
+.post-info {
+  padding: 15px;
+}
+
+.post-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+}
+
+.post-desc {
+  color: #555;
+}
+
+/* Clamp 2 lines */
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Mobile fixes */
+@media (max-width: 576px) {
+  .bio { max-width: 92%; }
+  .stats-row { gap: 16px; }
+  .post-image { height: 200px; }
+}
+
+/* Edit button */
+.edit-btn {
+  margin-top: -6px;
+  background: rgba(255,255,255,0.9);
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 6px 14px;
+  transition: 0.2s;
+}
+
+.edit-btn:hover {
+  background: #fff;
+}
+
+/* Avatar preview inside modal */
+.edit-avatar-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ddd;
+}
+
+/* default preview avatar style */
+.default-edit-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(109, 40, 217, 0.85);
+  border: 3px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+
+.avatar-preview-box {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+.edit-avatar-preview {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ddd;
+}
+
+.default-edit-avatar {
+  width: 140px;
+  height: 140px;
+  background: #7b42ff;
+  border-radius: 50%;
+  border: 3px solid #ddd;
+}

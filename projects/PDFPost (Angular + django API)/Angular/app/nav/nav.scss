@@ -1,0 +1,49 @@
+.btn-accent {
+  background-color: var(--accent);
+  border: none;
+}
+
+.btn-accent:hover {
+  background-color: #8F6AF5;
+}
+.modal-content {
+  border-radius: 12px;
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-body label {
+  font-weight: 500;
+}
+
+.btn-close-white {
+  filter: invert(1);
+}
+
+
+.scroll-box {
+  max-height: 250px;   /* adjust height as you like */
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+/* Optional: style scrollbar */
+.scroll-box::-webkit-scrollbar {
+  width: 6px;
+}
+.scroll-box::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
+
+.g-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.g-btn > div {
+  width: 100% !important;
+}
